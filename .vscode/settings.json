@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
         "prototxt"
-    ]
+    ],
+    "liveServer.settings.port": 5501,
+    "python.analysis.typeCheckingMode": "basic"
 }

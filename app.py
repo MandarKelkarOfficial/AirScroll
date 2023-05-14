@@ -6,6 +6,7 @@ import os
 import sys
 import numpy as np
 from threading import Thread
+# import mediapipe as mp
 
 
 global capture, rec_frame, grey, switch, neg, face, rec, out
@@ -71,9 +72,22 @@ def gen_frames():  # generate frame by frame from camera
             pass
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
+def sign_in():
+    return render_template('sign_in.html')
+
+@app.route('/welcome', methods=['POST', 'GET'])
+def welcome():
+    return render_template('welcome.html')
+
+@app.route('/index', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    return render_template('dashboard.html')
+
+
+@app.route('/gettingstarted', methods=['POST', 'GET'])
+def gettingstarted():
+    return render_template('gettingStarted.html')
 
 
 @app.route('/video_feed')
@@ -104,19 +118,6 @@ def tasks():
             else:
                 camera = cv2.VideoCapture(0)
                 switch = 1
-        # elif request.form.get('rec') == 'Start/Stop Recording':
-        #     global rec, out
-        #     rec = not rec
-        #     if (rec):
-        #         now = datetime.datetime.now()
-        #         fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        #         out = cv2.VideoWriter('vid_{}.avi'.format(
-        #             str(now).replace(":", '')), fourcc, 20.0, (640, 480))
-        #         # Start new thread for recording the video
-        #         thread = Thread(target=record, args=[out,])
-        #         thread.start()
-        #     elif (rec == False):
-        #         out.release()
 
     elif request.method == 'GET':
         return render_template('index.html')
@@ -125,3 +126,4 @@ def tasks():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
